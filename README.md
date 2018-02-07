@@ -3,6 +3,13 @@ Useful netcat commands such as Reverse Shells, Port Relays via FIFO, and others 
 
 
 
+
+
+
+
+
+
+
 ### Listener ###
 Listen for inbound connection over TCP. This can be used to receive reverse shell sessions.
 ```
