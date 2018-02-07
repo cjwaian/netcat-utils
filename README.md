@@ -82,9 +82,13 @@ First netcat is used to create a listener on `[Port-B]` which we will direct Std
 **Examples:**
 
 MySQL by default listens on Port 3306, this will fool mysqld into thinking the connecting user is `user@localhost`! Many web apps only permit users from localhost and communicate via loopback connections to backend databases while not exposing the port to the outside; this would bypass that allowing external mysql client sessions that appear to originate from localhost.
+
 Target: `nc -l -p [Port-B] 0< [pipe-name] | nc 127.0.0.1 3306 1> [pipe-name]`
+
 Connection: `mysql --port [Port-B] --username=[user] --password=[passwd]`
+
 Unfortunately the default `secure_mysql_installation` option "Prevent root from outside" will still disable `root`@`localhost` to connect in this manor.
+
 
 FIFO's can also be used to connect to shells.
 ```
