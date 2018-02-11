@@ -14,8 +14,11 @@ Useful netcat commands such as Reverse Shells, Port Relays via FIFO, and others 
 Listen for inbound connection over TCP. This can be used to receive reverse shell sessions.
 
 To damonize use the `-d` flag, this will hide any GUI window.
+
+Use `-v` to see verbose output.
 ```
-nc -l -d -v -p [port]
+nc -l -d -p [port]
+nc -l -v -p [port]
 ```
 ---
 
